@@ -6,4 +6,9 @@ if ! [ -x "$(command -v xmobar)" ]; then
 	exit 1
 fi
 
+if ! [ -x "$(command -v dmenu)" ]; then
+	echo 'Error: dmenu is not installed.' >&2
+	exit 1
+fi
+
 ln -s ${PWD} ${HOME}/.xmonad
