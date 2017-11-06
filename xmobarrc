@@ -4,18 +4,22 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
         , bgColor = "black"
         , fgColor = "grey"
         , position = TopW L 100
-        , commands = [ Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-                        , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+        , commands = [  Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
                         , Run Network "eth1" ["-L","0","-H","32","--normal","green","--high","red"] 10
                         , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                         , Run Memory ["-t","Mem: <usedratio>%"] 10
                         , Run Swap [] 10
+                        , Run DiskU [("/", "sda1: <used>(<size>)"), ("sda1", "<usedbar>")] ["-L", "20", "-H", "50", "-m", "1", "-p", "3"] 20
+                        , Run ThermalZone 0 ["-t","<temp>C"] 30
+                        , Run ThermalZone 1 ["-t","<temp>C"] 30
+                        , Run ThermalZone 2 ["-t","<temp>C"] 30
+                        , Run CoreTemp ["-t", "<core0>,<core1>,<core2>,<core3>C", "-L", "40", "-H", "60", "-l", "lightblue", "-n", "gray90", "-h", "red"] 50
                         , Run Com "uname" ["-s","-r"] "" 36000
                         , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                         , Run StdinReader
                         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% | %cpu% | %memory% * %swap% | %eth0% - %eth1% }{<fc=#ee9a00>%date%</fc> | %uname% | %CYVR% "
+        , template = "%StdinReader% | %cpu% | %memory%, %swap% | %disku% | CpuTemp: %coretemp%, TempZones: %thermal0%, %thermal1%, %thermal2% }{<fc=#ee9a00>%date%</fc> | %uname% "
         , lowerOnStart = True
       }
