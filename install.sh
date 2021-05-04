@@ -11,4 +11,5 @@ if ! [ -x "$(command -v dmenu)" ]; then
 	exit 1
 fi
 
-ln -s ${PWD} ${HOME}/.xmonad
+ln -sf ${PWD}/xmonad.hs ${HOME}/.xmonad/xmonad.hs
+ln -sf ${PWD}/xmobarrc ${HOME}/.xmonad/xmobarrc
